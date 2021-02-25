@@ -1,0 +1,57 @@
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{ISO8601} %highlight(%-5level) [%thread] - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>ssai_loader.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>ssai_loader-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>30</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <pattern>%date{ISO8601} %-5level [%thread] - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file_perf" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>ssai_loader_perf.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>ssai_loader_perf-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>30</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <pattern>%date{ISO8601} %-5level [%thread] - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="stdout"/>
+    </root>
+
+    <logger name="appLogger" level="INFO" additivity="false">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="file"/>
+    </logger>
+
+    <logger name="performance" level="INFO" additivity="false">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="file_perf"/>
+    </logger>
+</configuration>
